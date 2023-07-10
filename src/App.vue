@@ -1,11 +1,9 @@
 <script setup>
-import Card from './components/card.vue'
-import Share from './components/share.vue'
+import Card from './components/Card.vue'
 </script>
 
 <template>
   <Card/>
-  <Share/>
 </template>
 
 <style scoped>

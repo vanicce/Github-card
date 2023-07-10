@@ -7,5 +7,4 @@ import Card from './components/card.vue'
 </template>
 
 <style scoped>
-
 </style>

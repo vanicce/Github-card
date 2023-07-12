@@ -54,6 +54,3 @@ const defineUser = () => {
     <Share/>
   </div>
 </template>
-
-<style>
-</style>

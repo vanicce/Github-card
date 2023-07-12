@@ -35,7 +35,7 @@ const defineUser = () => {
 </script>
 
 <template>
-  <div class="flex justify-center items-center bg-blue flex-col h-full sm:h-screen md:w-screen pb-6">
+  <div class="flex justify-center items-center bg-blue flex-col h-screen sm:h-screen md:w-screen pb-6">
     <h1 class="text-5xl md:text-6xl p-3 text-navy font-Prompt">Find Your Github Card</h1>
     <div class="flex flex-col justify-center items-center p-3 rounded-md bg-sea w-72 max-w-xs md:w-3/5 m-2" id="myDiv">
       <div class="flex justify-center">

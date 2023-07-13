@@ -6,8 +6,8 @@ let searchInput = "";
 
 const state = reactive({
   pic: "/profilepic.jpg",
-  bio: "sua bio",
-  login: "seu nome",
+  bio: "your name",
+  login: "your name",
 });
 
 const defineUser = () => {

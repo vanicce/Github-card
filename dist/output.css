@@ -571,9 +571,18 @@ video {
   margin: 1rem;
 }
 
+.m-11 {
+  margin: 2.75rem;
+}
+
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.mx-28 {
+  margin-left: 7rem;
+  margin-right: 7rem;
 }
 
 .mt-2 {
@@ -610,6 +619,18 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-5\/6 {
+  width: 83.333333%;
 }
 
 .max-w-xs {
@@ -799,6 +820,10 @@ video {
 
   .md\:w-screen {
     width: 100vw;
+  }
+
+  .md\:max-w-xs {
+    max-width: 20rem;
   }
 
   .md\:flex-row {

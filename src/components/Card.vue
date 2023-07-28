@@ -31,7 +31,7 @@ const defineUser = () => {
         state.following = following;
       }).
       catch((error) => {
-        alert("An error occurred: " + error);
+        window.alert(`An error occurred: ${error}`);
       });
   }
 };

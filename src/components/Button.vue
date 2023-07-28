@@ -12,6 +12,6 @@ const { showModal } = storeToRefs(store)
 <template>
   <Share v-if="showModal"/>
   <div class="flex w-screen justify-center">
-    <button class="border border-solid rounded-md bg-ctp-base text-ctp- font-Prompt border-ctp-text p-3 w-72 md:w-3/5 max-w-xs" @click="showModal = true">Share</button>
+    <button class="border border-solid rounded-md bg-ctp-base text-ctp- font-Prompt border-ctp-text p-3 w-full md:w-3/5 max-w-xs" @click="showModal = true">Share</button>
   </div>
 </template>

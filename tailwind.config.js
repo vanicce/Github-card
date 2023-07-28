@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/components/*.vue"],
+  content: [
+    "./index.html",
+    "./src/components/*.vue",
+    "./src/*.vue",
+],
   theme: {
     extend: {
       colors: {
@@ -14,5 +18,10 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@catppuccin/tailwindcss")({
+      prefix: "ctp",
+      defaultFlavour: "macchiato",
+    }),
+  ],  
 };

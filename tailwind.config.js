@@ -4,6 +4,7 @@ module.exports = {
     "./index.html",
     "./src/components/*.vue",
     "./src/*.vue",
+    "./src/assets/*.svg",
 ],
   theme: {
     extend: {
@@ -23,5 +24,5 @@ module.exports = {
       prefix: "ctp",
       defaultFlavour: "macchiato",
     }),
-  ],  
+  ],
 };

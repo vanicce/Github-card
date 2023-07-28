@@ -692,6 +692,10 @@ video {
   background-color: rgba(var(--ctp-mantle), var(--tw-bg-opacity));
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
 .fill-ctp-flamingo {
   fill: rgb(var(--ctp-flamingo));
 }
@@ -758,6 +762,11 @@ video {
 .text-ctp-lavender {
   --tw-text-opacity: 1;
   color: rgba(var(--ctp-lavender), var(--tw-text-opacity));
+}
+
+.text-ctp-sky {
+  --tw-text-opacity: 1;
+  color: rgba(var(--ctp-sky), var(--tw-text-opacity));
 }
 
 .outline-none {

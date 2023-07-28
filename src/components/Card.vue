@@ -42,7 +42,7 @@ const defineUser = () => {
     <h1 class="text-4xl md:text-6xl p-3 text-ctp-lavender font-Prompt">Find Your Github Card</h1>
     <div class="flex flex-col justify-center items-center p-3 rounded-md border-ctp-text border bg-ctp-base w-full max-w-xs md:w-3/5 m-2">
       <div class="flex justify-center">
-        <input class="p-1 border border-solid border-ctp-text rounded-l-md w-50 outline-none appearance-none text-black" type="search" v-model="state.searchInput" @keydown.enter="defineUser"/>
+        <input class="p-1 border border-solid border-ctp-text rounded-l-md w-50 outline-none appearance-none bg-transparent" placeholder="search a username..." type="search" v-model="state.searchInput" @keydown.enter="defineUser"/>
         <button class="border border-ctp-text border-l-0 p-1 rounded-r-md  w-full" @click="defineUser" >search</button>
       </div>
       <img class="rounded-full w-56 h-56 md:w-64 md:h-64 m-4" :src="state.pic" alt="foto de perfil do github" />

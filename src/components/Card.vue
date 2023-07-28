@@ -11,8 +11,9 @@ const state = reactive({
 });
 
 const defineUser = () => {
-  if (state.searchInput == "") {
-    window.alert("search a username");
+  if (state.searchInput === "") {
+    window.alert("write a username");
+    return
   } else {
     state.user = state.searchInput;
 
@@ -20,6 +21,14 @@ const defineUser = () => {
 
     promisse
       .then((res) => {
+        if(!res.ok) {
+        if(res.status === 404) {
+          window.alert("user not finded")
+        } else {
+          window.alert("an error in requisiton ocurred")
+        }
+        return
+      }
         return res.json();
       }).
       then((res) => {
@@ -31,7 +40,7 @@ const defineUser = () => {
         state.following = following;
       }).
       catch((error) => {
-        window.alert(`An error occurred: ${error}`);
+        window.alert(`An error occurred: ${error.message}`);
       });
   }
 };

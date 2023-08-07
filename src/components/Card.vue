@@ -10,38 +10,32 @@ const state = reactive({
   login: "your name",
 });
 
-const defineUser = () => {
+const defineUser = async () => {
   if (state.searchInput === "") {
     window.alert("write a username");
     return
-  } else {
-    state.user = state.searchInput;
+  }
+  try {
+    const response = await fetch(`https://api.github.com/users/${state.searchInput}`);
 
-    const promisse = fetch(`https://api.github.com/users/${state.user}`);
-
-    promisse.
-      then((res) => {
-        if(!res.ok) {
-        if(res.status === 404) {
-          window.alert("user not finded")
-        } else {
-          window.alert("an error in requisiton ocurred")
-        }
-        return
+    if(!response.ok) {
+      if(response.status === 404) {
+      } else {
+        window.alert(`an error in requisiton ocurred: ${response.status} ${response.statusText}`)
       }
-        return res.json();
-      }).
-      then((res) => {
-        const { bio, avatar_url, login, followers, following } = res;
-        state.pic = avatar_url;
-        state.login = login;
-        state.bio = bio;
-        state.followers = followers;
-        state.following = following;
-      }).
-      catch((error) => {
-        window.alert(`An error occurred: ${error.message}`);
-      });
+      return
+    }
+
+    const userData = await response.json()
+    const { bio, avatar_url, login, followers, following } = userData
+
+    state.pic = avatar_url;
+    state.login = login;
+    state.bio = bio;
+    state.followers = followers;
+    state.following = following;
+  } catch (error) {
+    window.alert(`an error in requisiton ocurred: ${error.message}`)
   }
 };
 </script>

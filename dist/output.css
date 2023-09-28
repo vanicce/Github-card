@@ -596,8 +596,16 @@ video {
   height: 1.5rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .h-screen {
   height: 100vh;
+}
+
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-56 {
@@ -735,10 +743,6 @@ video {
   padding-right: 1.25rem;
 }
 
-.pb-6 {
-  padding-bottom: 1.5rem;
-}
-
 .font-Prompt {
   font-family: Prompt;
 }
@@ -803,10 +807,6 @@ video {
 
   .md\:w-full {
     width: 100%;
-  }
-
-  .md\:w-screen {
-    width: 100vw;
   }
 
   .md\:flex-row {

@@ -3,8 +3,8 @@ import Card from './components/Card.vue'
 </script>
 
 <template>
-  <div class="flex justify-center items-center bg-ctp-mantle flex-col h-full min-h-screen py-4 text-ctp-lavender">
-    <h1 class="text-4xl md:text-6xl md:p-3 text-ctp-lavender font-Prompt">Find Your Github Card</h1>
+  <div class="flex justify-center items-center bg-ctp-mantle flex-col h-full min-h-screen py-2 text-ctp-lavender">
+    <h1 class="text-4xl md:text-6xl md:p-3 text-ctp-lavender font-Prompt">Find Your GitHub Card</h1>
     <Card />
   </div>
 </template>

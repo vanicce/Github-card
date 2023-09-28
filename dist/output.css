@@ -712,6 +712,11 @@ video {
   background-color: transparent;
 }
 
+.decoration-slice {
+  -webkit-box-decoration-break: slice;
+          box-decoration-break: slice;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -753,6 +758,11 @@ video {
   padding-bottom: 1rem;
 }
 
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .font-Prompt {
   font-family: Prompt;
 }
@@ -789,6 +799,22 @@ video {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.decoration-black {
+  text-decoration-color: #000;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
+}
+
+.underline-offset-1 {
+  text-underline-offset: 1px;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
 }
 
 .outline-none {

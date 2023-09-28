@@ -56,7 +56,7 @@ const defineUser = async () => {
         <p class="text-base md:text-base  mt-2 font-Prompt">following: {{ state.following }}</p>
       </div>
       <p>repos: {{ state.repos }}</p>
-      <a :href="state.blog">{{ state.blog }}</a>
+      <a class="underline" :href="state.blog">{{ state.blog }}</a>
       <p class="text-sm md:text-base mt-2 font-Prompt self-start" >{{ state.bio }}</p>
     </div>
     <Button />

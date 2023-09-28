@@ -743,6 +743,16 @@ video {
   padding-right: 1.25rem;
 }
 
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .font-Prompt {
   font-family: Prompt;
 }
@@ -775,6 +785,10 @@ video {
 .text-ctp-lavender {
   --tw-text-opacity: 1;
   color: rgba(var(--ctp-lavender), var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
 }
 
 .outline-none {

@@ -43,8 +43,6 @@ const defineUser = async () => {
 </script>
 
 <template>
-  <div class="flex justify-center items-center bg-ctp-mantle flex-col h-screen md:w-screen pb-6 text-ctp-lavender">
-    <h1 class="text-4xl md:text-6xl md:p-3 text-ctp-lavender font-Prompt">Find Your Github Card</h1>
     <div class="flex flex-col justify-center items-center p-3 rounded-md border-ctp-text border bg-ctp-base max-w-xs md:w-3/5 m-2">
       <div class="px-0 flex justify-center w-full">
         <input class="p-1 border border-solid border-ctp-text rounded-l-md outline-none appearance-none bg-transparent" placeholder="search a username..." type="search" v-model="state.searchInput" @keydown.enter="defineUser"/>
@@ -62,5 +60,4 @@ const defineUser = async () => {
       <p class="text-sm md:text-base mt-2 font-Prompt self-start" >{{ state.bio }}</p>
     </div>
     <Button />
-  </div>
 </template>

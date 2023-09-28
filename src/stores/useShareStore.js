@@ -7,4 +7,3 @@ export const useShareStore = defineStore('share', () => {
 
   return { showModal, copied }
 })
-

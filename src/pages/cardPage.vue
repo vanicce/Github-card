@@ -1,6 +1,6 @@
 <script setup>
-  import Wrapper from '../components/wrapper.vue';
-  import Card from '../components/Card.vue';
+import Wrapper from '../components/wrapper.vue';
+import Card from '../components/Card.vue';
 </script>
 
 <template>

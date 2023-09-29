@@ -555,6 +555,10 @@ video {
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -584,6 +588,10 @@ video {
   margin-top: 0.5rem;
 }
 
+.mb-24 {
+  margin-bottom: 6rem;
+}
+
 .flex {
   display: flex;
 }
@@ -602,6 +610,38 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-24 {
+  height: 6rem;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-20 {
+  height: 5rem;
+}
+
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-2\/3 {
+  height: 66.666667%;
 }
 
 .min-h-screen {
@@ -712,9 +752,39 @@ video {
   background-color: transparent;
 }
 
-.decoration-slice {
-  -webkit-box-decoration-break: slice;
-          box-decoration-break: slice;
+.bg-slate-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+
+.bg-ctp-rosewater {
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--ctp-rosewater), var(--tw-bg-opacity));
+}
+
+.bg-ctp-pink {
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--ctp-pink), var(--tw-bg-opacity));
+}
+
+.bg-ctp-maroon {
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--ctp-maroon), var(--tw-bg-opacity));
+}
+
+.bg-ctp-blue {
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--ctp-blue), var(--tw-bg-opacity));
+}
+
+.bg-ctp-crust {
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--ctp-crust), var(--tw-bg-opacity));
+}
+
+.bg-ctp-flamingo {
+  --tw-bg-opacity: 1;
+  background-color: rgba(var(--ctp-flamingo), var(--tw-bg-opacity));
 }
 
 .p-1 {
@@ -748,19 +818,14 @@ video {
   padding-right: 1.25rem;
 }
 
-.py-16 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .font-Prompt {
@@ -797,24 +862,13 @@ video {
   color: rgba(var(--ctp-lavender), var(--tw-text-opacity));
 }
 
+.text-ctp-mauve {
+  --tw-text-opacity: 1;
+  color: rgba(var(--ctp-mauve), var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
-}
-
-.decoration-black {
-  text-decoration-color: #000;
-}
-
-.underline-offset-2 {
-  text-underline-offset: 2px;
-}
-
-.underline-offset-1 {
-  text-underline-offset: 1px;
-}
-
-.underline-offset-4 {
-  text-underline-offset: 4px;
 }
 
 .outline-none {

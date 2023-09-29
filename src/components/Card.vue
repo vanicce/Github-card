@@ -50,7 +50,7 @@ const defineUser = async () => {
 
 <template>
   <div
-    class="flex flex-col justify-center items-center p-3 rounded-md border-ctp-text border bg-ctp-base max-w-xs md:w-3/5 m-2">
+    class="flex flex-col justify-center items-center p-3 rounded-md border-ctp-text border bg-ctp-base max-w-xs md:w-3/5 m-2 text-ctp-lavender">
     <div class="px-0 flex justify-center w-full">
       <input
         class="p-1 border border-solid border-ctp-text rounded-l-md outline-none appearance-none bg-transparent w-full"

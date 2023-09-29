@@ -23,7 +23,7 @@
 </script>
 
 <template>
-  <div class="flex h-screen w-screen justify-center items-center fixed left-0 top-0">
+  <div class="flex h-screen w-screen justify-center items-center fixed left-0 top-0 text-ctp-lavender">
     <div class="bg-ctp-base p-11 m-2 w-full sm:w-2/4 border rounded-md">
       <div class="flex justify-end">
         <button @click="showModal = false">

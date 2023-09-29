@@ -4,10 +4,12 @@ import Button from "./Button.vue";
 
 const state = reactive({
   searchInput: "",
+  login: "your name",
   pic: "/profilepic.jpg",
   bio: "your bio",
-  login: "your name",
-  url: ""
+  followers: 0,
+  following: 0,
+  repos: 0,
 });
 
 const defineUser = async () => {

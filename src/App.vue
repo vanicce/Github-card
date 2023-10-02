@@ -6,9 +6,9 @@ import Wrapper from './components/wrapper.vue'
 </script>
 
 <template>
+  <Header />
   <Wrapper>
-    <Header />
     <cardPage />
-    <Footer />
   </Wrapper>
+  <Footer />
 </template>

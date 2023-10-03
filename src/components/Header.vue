@@ -29,11 +29,11 @@ const defineUser = async () => {
     store.url = `https://github.com/${login}`
 
   } catch (error) {
-    if (response.status === 404) {
-      window.alert("user not finded")
-      return
-    }
-    window.alert(`an error in requisiton ocurred: ${response.status} ${response.statusText}`)
+    response.status === 404 ? (
+      alert("user not finded")
+    ) : (
+      alert(`an error in requisiton ocurred: ${response.status} ${response.statusText}`)
+    )
   }
 };
 

@@ -42,9 +42,23 @@ const copy = async () => {
           </button>
         </p>
       </div>
-      <div v-if="store.copied" class="flex items-center justify-center">
-        <p class="font-Prompt">Copied to clipboard!</p>
-      </div>
+      <Transition>
+        <div v-if="store.copied" class="flex items-center justify-center">
+          <p class="font-Prompt">Copied to clipboard!</p>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

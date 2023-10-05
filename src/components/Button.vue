@@ -1,7 +1,11 @@
 <script setup>
-import Share from "./Share.vue";
 import { storeToRefs } from 'pinia'
 import { useShareStore } from "../stores/useShareStore.js"
+import { defineAsyncComponent } from "vue";
+
+const AsyncComp = defineAsyncComponent(() =>
+  import("./Share.vue")
+)
 
 const store = useShareStore()
 const { showModal } = storeToRefs(store)
@@ -13,7 +17,7 @@ const { showModal } = storeToRefs(store)
     <button class="border border-solid rounded-md bg-ctp-base font-Prompt border-ctp-text p-3 w-4/5 md:max-w-sm"
       @click="showModal = true">Share</button>
     <Transition>
-      <Share v-if="showModal" />
+      <Async-comp v-if="showModal" />
     </Transition>
   </div>
 </template>

@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../pages/Index.vue";
-import CardPage from "../pages/CardPage.vue";
+import CardPage from "../pages/cardPage.vue";
 import Repos from "../pages/Repos.vue";
 import NotFound from "../pages/404Page.vue";
 

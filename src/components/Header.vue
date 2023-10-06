@@ -16,7 +16,7 @@ const defineUser = async () => {
     }
 
     const userData = await response.json()
-    const { bio, avatar_url, login, followers, following, public_repos, blog } = userData
+    const { bio, avatar_url, login, followers, following, public_repos, blog, html_url } = userData
 
     store.pic = avatar_url;
     store.login = login;
@@ -26,8 +26,9 @@ const defineUser = async () => {
     store.repos = public_repos
     store.blog = blog
 
-    store.url = `https://github.com/${login}`
+    store.url = html_url
 
+    store.searchInput = ''
   } catch (error) {
     response.status === 404 ? (
       alert("user not finded")
@@ -41,12 +42,12 @@ const defineUser = async () => {
 
 <template>
   <div class="flex fixed md:static 2xl:absolute items-center top-0 left-0 w-full h-16 bg-ctp-mantle text-ctp-mauve">
-    <p class="hidden md:block px-5">GitHub</p>
+    <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
     <input
       class="p-1 border border-solid border-ctp-text rounded-l-md outline-none appearance-none bg-transparent w-full "
       placeholder="search a username..." type="search" v-model="store.searchInput" @keydown.enter="defineUser" />
     <button class="border border-ctp-text border-l-0 p-1 rounded-r-md" @click="defineUser">search</button>
-    <button class="underline px-4">repos</button>
-    <button class="underline px-4">card</button>
+    <router-link to="/repos" class="underline px-4">repos</router-link>
+    <router-link to="/card" class="underline px-4">card</router-link>
   </div>
 </template>

@@ -3,7 +3,10 @@ import { useCardStore } from '../stores/useCardStore';
 
 const store = useCardStore()
 
+
 const defineUser = async () => {
+  document.querySelector('input').blur()
+
   if (store.searchInput === "") {
     window.alert("write a username");
     return
@@ -14,6 +17,7 @@ const defineUser = async () => {
     if (!response.ok) {
       throw Error()
     }
+
 
     const userData = await response.json()
     const { bio, avatar_url, login, followers, following, public_repos, blog, html_url } = userData

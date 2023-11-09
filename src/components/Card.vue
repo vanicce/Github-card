@@ -5,13 +5,10 @@ import html2canvas from "html2canvas"
 
 const store = useCardStore()
 
-const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/corsdemo'
-
 const capture = async () => {
   const element = document.querySelector('#conteudo');
 
   await html2canvas(element, {
-    proxy: corsAnywhereUrl,
     useCORS: true
   }).then((canvas) => {
     let capturedImage = canvas.toDataURL();
@@ -39,9 +36,13 @@ const capture = async () => {
     <a class="font-Prompt underline" :href="store.blog" target="_blank">{{ store.blog }}</a>
     <p class="text-sm md:text-base my-2 font-Prompt self-start">{{ store.bio }}</p>
   </div>
-  <Button />
-  <button class="border border-solid rounded-md bg-ctp-base font-Prompt border-ctp-text p-3 w-4/5 max-w-sm mt-2"
-    @click="capture">
-    Download
-  </button>
+  <!-- <div class="flex w-4/5 md:w-2/4 lg:w-2/5 xl:w-1/5"> -->
+  <div class="flex justify-between w-4/5 max-w-sm">
+    <Button />
+    <button
+      class="border border-solid rounded-md bg-ctp-base text-ctp-lavender font-Prompt border-ctp-text p-3 w-[49%]"
+      @click="capture">
+      Download
+    </button>
+  </div>
 </template>

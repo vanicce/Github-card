@@ -11,7 +11,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/card",
+    path: "/card/:user",
     name: "card",
     component: CardPage,
   },

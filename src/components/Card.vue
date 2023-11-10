@@ -5,10 +5,10 @@ import html2canvas from "html2canvas"
 
 const store = useCardStore()
 
-const capture = async () => {
+const capture = () => {
   const element = document.querySelector('#conteudo');
 
-  await html2canvas(element, {
+   html2canvas(element, {
     useCORS: true
   }).then((canvas) => {
     let capturedImage = canvas.toDataURL();
@@ -39,8 +39,7 @@ const capture = async () => {
   <!-- <div class="flex w-4/5 md:w-2/4 lg:w-2/5 xl:w-1/5"> -->
   <div class="flex justify-between w-4/5 max-w-sm">
     <Button />
-    <button
-      class="border border-solid rounded-md bg-ctp-base text-ctp-lavender font-Prompt border-ctp-text p-3 w-[49%]"
+    <button class="border border-solid rounded-md bg-ctp-base text-ctp-lavender font-Prompt border-ctp-text p-3 w-[49%]"
       @click="capture">
       Download
     </button>

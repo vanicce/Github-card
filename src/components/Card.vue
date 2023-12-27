@@ -25,7 +25,7 @@ const capture = () => {
 <template>
   <div id="conteudo"
     class="flex flex-col justify-center items-center p-3 rounded-md border-ctp-text border bg-ctp-base w-4/5 max-w-sm m-2 text-ctp-lavender">
-    <img id='img' class="rounded-full w-56 h-56 md:w-64 md:h-64 m-4" :src="store.pic" alt="foto de perfil do github" />
+    <img id='img' class="rounded-full w-56 h-56 md:w-64 md:h-64 m-4" :src="store.pic || './profilepic.jpg'" alt="foto de perfil do github" />
     <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank">@{{ store.login }}</a>
     <div class="flex">
       <p class="text-base md:text-base mt-2 font-Prompt">followers: {{ store.followers }}</p>

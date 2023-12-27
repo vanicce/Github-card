@@ -4,7 +4,7 @@ import { ref } from "vue";
 export const useCardStore = defineStore("card", () => {
   const searchInput = ref("");
   const login = ref("your name");
-  const pic = ref("../../public/profilepic.jpg");
+  const pic = ref('../profilepic.jpg');
   const bio = ref("your bio");
   const followers = ref(0);
   const following = ref(0);

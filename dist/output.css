@@ -526,6 +526,10 @@ video {
   position: fixed;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -613,8 +617,16 @@ video {
   height: 100dvh;
 }
 
+.h-\[\] {
+  height: ;
+}
+
 .min-h-\[100dvh\] {
   min-height: 100dvh;
+}
+
+.min-h-full {
+  min-height: 100%;
 }
 
 .w-4\/5 {
@@ -649,6 +661,14 @@ video {
   max-width: 24rem;
 }
 
+.origin-center {
+  transform-origin: center;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
+
 .appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -657,6 +677,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.content-center {
+  align-content: center;
 }
 
 .items-start {
@@ -677,6 +701,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.place-self-center {
+  place-self: center;
 }
 
 .self-center {
@@ -905,6 +933,14 @@ video {
   text-align: center;
 }
 
+.align-baseline {
+  vertical-align: baseline;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
 .font-Prompt {
   font-family: Prompt;
 }
@@ -984,6 +1020,12 @@ video {
   transition-duration: 150ms;
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -1021,6 +1063,10 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:absolute {
+    position: absolute;
+  }
+
   .md\:block {
     display: block;
   }

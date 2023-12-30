@@ -7,7 +7,7 @@ import Wrapper from './components/Wrapper.vue'
 <template>
   <Header />
   <Wrapper>
-    <router-view />
+    <router-view class="min-h-[100dvh]"/>
   </Wrapper>
   <Footer />
 </template>

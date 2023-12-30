@@ -38,7 +38,7 @@ const capture = () => {
   </div>
   <div class="flex justify-between w-4/5 max-w-sm">
     <Button />
-    <button class="border border-zinc-300 rounded-md font-Prompt p-3 w-[49%]"
+    <button class="border border-zinc-300 rounded-xl font-Prompt p-3 w-[49%]"
       @click="capture">
       Download
     </button>

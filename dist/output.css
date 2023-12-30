@@ -542,6 +542,10 @@ video {
   margin: 0.5rem;
 }
 
+.m-3 {
+  margin: 0.75rem;
+}
+
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -550,6 +554,11 @@ video {
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .mb-3 {
@@ -562,6 +571,14 @@ video {
 
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .flex {
@@ -590,6 +607,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[100dvh\] {
+  height: 100dvh;
 }
 
 .min-h-\[100dvh\] {
@@ -734,6 +755,11 @@ video {
   border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 
+.border-zinc-50 {
+  --tw-border-opacity: 1;
+  border-color: rgb(250 250 250 / var(--tw-border-opacity));
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -840,6 +866,21 @@ video {
   padding-bottom: 2rem;
 }
 
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.px-9 {
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
 .pb-7 {
   padding-bottom: 1.75rem;
 }
@@ -858,6 +899,10 @@ video {
 
 .pt-7 {
   padding-top: 1.75rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .font-Prompt {
@@ -907,6 +952,14 @@ video {
   outline-offset: 2px;
 }
 
+.outline-zinc-300 {
+  outline-color: #d4d4d8;
+}
+
+.outline-zinc-900 {
+  outline-color: #18181b;
+}
+
 .blur {
   --tw-blur: blur(8px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -925,12 +978,24 @@ video {
   transition-duration: 150ms;
 }
 
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
 .backdrop\:bg-transparent::backdrop {
   background-color: transparent;
+}
+
+.hover\:scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .hover\:underline:hover {
@@ -960,6 +1025,10 @@ video {
     display: block;
   }
 
+  .md\:hidden {
+    display: none;
+  }
+
   .md\:w-2\/4 {
     width: 50%;
   }
@@ -974,6 +1043,10 @@ video {
 
   .md\:justify-evenly {
     justify-content: space-evenly;
+  }
+
+  .md\:bg-none {
+    background-image: none;
   }
 
   .md\:text-3xl {

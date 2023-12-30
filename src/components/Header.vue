@@ -66,13 +66,16 @@ setTimeout(() => {
 </script>
 
 <template>
-  <div class="flex lg:fixed 2xl:absolute items-center top-0 left-0 w-full h-16">
+  <div class="flex lg:fixed 2xl:absolute items-center top-0 left-0 w-full h-16 border bg-zinc-50">
     <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
-    <input
-      class="p-1 border border-solid rounded-l-md outline-none appearance-none bg-transparent w-full "
-      placeholder="search a username..." type="search" v-model="store.searchInput" @keydown.enter="defineUser" />
-    <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md" @click="defineUser">search</button>
-    <router-link to="/repos" class="underline px-4">repos</router-link>
-    <router-link id="card" :to="{ params: { user: store.login }, name: 'card' }" class="underline px-4">card</router-link>
+    <div class="flex w-full mx-3">
+      <input
+      class="p-1 border border-solid border-zinc-300 rounded-l-md outline-none appearance-none bg-transparent w-full"
+      placeholder="search a username..." type="search" v-model="store.searchInput" @keydown.enter="defineUser"
+      />
+      <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md border-zinc-300" @click="defineUser">search</button>
+    </div>
+    <router-link to="/repos" class="hidden md:block underline px-4">repos</router-link>
+    <router-link id="card" :to="{ params: { user: store.login }, name: 'card' }" class="underline hidden md:block px-5">card</router-link>
   </div>
 </template>

@@ -2,7 +2,9 @@
 import Button from "./Button.vue";
 import { useCardStore } from "../stores/useCardStore.js";
 import html2canvas from "html2canvas"
+import { useShareStore } from '../stores/useShareStore';
 
+const shareStore = useShareStore()
 const store = useCardStore()
 
 const capture = () => {
@@ -24,7 +26,7 @@ const capture = () => {
 
 <template>
   <div id="conteudo"
-    class="flex flex-col justify-center items-center p-3 rounded-3xl border border-zinc-300 w-4/5 max-w-sm m-2">
+    class="flex flex-col justify-center items-center p-3 rounded-3xl border border-zinc-300 w-4/5 max-w-sm m-2 transition-all" :class="shareStore.showModal ? 'blur-lg' : ''">
     <img id='img' class="rounded-3xl mb-3" :src="store.pic" alt="foto de perfil do github" />
     <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank">@{{ store.login }}</a>
     <div class="flex">

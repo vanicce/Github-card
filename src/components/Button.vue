@@ -14,7 +14,7 @@ const { showModal } = storeToRefs(store)
 
 <template>
   <button
-    class="border border-solid rounded-md font-Prompt w-[49%]"
+    class="border border-zinc-300 rounded-md font-Prompt w-[49%]"
     @click="showModal = true">Share</button>
   <Transition>
     <Async-comp v-if="showModal" />

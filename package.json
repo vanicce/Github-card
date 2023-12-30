@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css -w",
     "build": "vite build",
     "preview": "vite preview",
     "host": "vite --host"

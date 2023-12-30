@@ -24,7 +24,7 @@ const capture = () => {
 
 <template>
   <div id="conteudo"
-    class="flex flex-col justify-center items-center p-3 rounded-2xl border-ctp-text border bg-ctp-base w-4/5 max-w-sm m-2 text-ctp-lavender">
+    class="flex flex-col justify-center items-center p-2 rounded-2xl border-ctp-text border bg-ctp-base w-4/5 max-w-sm m-2 text-ctp-lavender">
     <img id='img' class="rounded-2xl mb-3" :src="store.pic" alt="foto de perfil do github" />
     <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank">@{{ store.login }}</a>
     <div class="flex">

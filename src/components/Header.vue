@@ -66,7 +66,7 @@ setTimeout(() => {
 </script>
 
 <template>
-  <div class="flex lg:fixed 2xl:absolute items-center top-0 left-0 w-full h-16 border bg-zinc-50">
+  <div class="flex items-center top-0 left-0 w-full h-16 border bg-zinc-50">
     <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
     <div class="flex w-full mx-3">
       <input

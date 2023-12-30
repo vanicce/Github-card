@@ -66,12 +66,12 @@ setTimeout(() => {
 </script>
 
 <template>
-  <div class="flex lg:fixed 2xl:absolute items-center top-0 left-0 w-full h-16 bg-ctp-mantle text-ctp-mauve">
+  <div class="flex lg:fixed 2xl:absolute items-center top-0 left-0 w-full h-16">
     <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
     <input
-      class="p-1 border border-solid border-ctp-text rounded-l-md outline-none appearance-none bg-transparent w-full "
+      class="p-1 border border-solid rounded-l-md outline-none appearance-none bg-transparent w-full "
       placeholder="search a username..." type="search" v-model="store.searchInput" @keydown.enter="defineUser" />
-    <button id="searchBtn" class="border border-ctp-text border-l-0 p-1 rounded-r-md" @click="defineUser">search</button>
+    <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md" @click="defineUser">search</button>
     <router-link to="/repos" class="underline px-4">repos</router-link>
     <router-link id="card" :to="{ params: { user: store.login }, name: 'card' }" class="underline px-4">card</router-link>
   </div>

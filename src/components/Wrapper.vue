@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center min-h-[100dvh] h-full bg-ctp-crust">
+  <div class="flex flex-col justify-center items-center min-h-[100dvh] h-full">
     <slot></slot>
   </div>
 </template>

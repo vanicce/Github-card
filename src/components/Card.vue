@@ -24,7 +24,7 @@ const capture = () => {
 
 <template>
   <div id="conteudo"
-    class="flex flex-col justify-center items-center p-2 rounded-2xl border-ctp-text border bg-ctp-base w-4/5 max-w-sm m-2 text-ctp-lavender">
+    class="flex flex-col justify-center items-center p-2 rounded-2xl border w-4/5 max-w-sm m-2">
     <img id='img' class="rounded-2xl mb-3" :src="store.pic" alt="foto de perfil do github" />
     <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank">@{{ store.login }}</a>
     <div class="flex">
@@ -38,7 +38,7 @@ const capture = () => {
   </div>
   <div class="flex justify-between w-4/5 max-w-sm">
     <Button />
-    <button class="border border-solid rounded-md bg-ctp-base text-ctp-lavender font-Prompt border-ctp-text p-3 w-[49%]"
+    <button class="border border-solid rounded-md font-Prompt p-3 w-[49%]"
       @click="capture">
       Download
     </button>

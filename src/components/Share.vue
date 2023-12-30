@@ -23,8 +23,8 @@ const copy = async () => {
 </script>
 
 <template>
-  <div class="flex h-screen w-screen justify-center items-center fixed left-0 top-0 text-ctp-lavender">
-    <div class="flex justify-between flex-col bg-ctp-base p-11 m-2 w-full sm:w-2/4 border rounded-md">
+  <div class="flex h-screen w-screen justify-center items-center fixed left-0 top-0">
+    <div class="flex justify-between flex-col p-11 m-2 w-full sm:w-2/4 border rounded-md">
       <div class="flex justify-end">
         <button @click="showModal = false">
           <img class="fill-white" src="../assets/x-symbol.svg" width="25" height="25">
@@ -36,7 +36,7 @@ const copy = async () => {
           class="flex items-center justify-between border border-solid rounded-md border-white w-full sm:w-3/4 p-2 m-2 font-Prompt">
           {{
             state.url }}
-          <button class="border border-white px-4 py-2 rounded-md bg-ctp-blue text-black" @click="copy()">
+          <button class="border border-white px-4 py-2 rounded-md text-black" @click="copy()">
             copy
             <!-- <img src="../assets/copy-svgrepo-com (1).svg" width="25" height="25"> -->
           </button>

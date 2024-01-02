@@ -66,11 +66,11 @@ setTimeout(() => {
 </script>
 
 <template>
-  <div class="flex items-center top-0 left-0 w-full h-16 border bg-zinc-50">
+  <div class="flex items-center top-0 left-0 w-full h-16 border bg-zinc-50 ">
     <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
     <div class="flex w-full mx-3">
       <input
-      class="p-1 border border-solid border-zinc-300 rounded-l-md outline-none appearance-none bg-transparent w-full"
+      class="p-1 border border-solid border-zinc-300 focus:border-neutral-600 rounded-l-md outline-none appearance-none bg-transparent w-full"
       placeholder="search a username..." type="search" v-model="store.searchInput" @keydown.enter="defineUser"
       />
       <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md border-zinc-300" @click="defineUser">search</button>

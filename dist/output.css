@@ -593,6 +593,14 @@ video {
   height: 100vh;
 }
 
+.h-\[\] {
+  height: ;
+}
+
+.h-\[100dvh\] {
+  height: 100dvh;
+}
+
 .min-h-\[100dvh\] {
   min-height: 100dvh;
 }

@@ -643,6 +643,10 @@ video {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-end {
   justify-content: flex-end;
 }
@@ -915,6 +919,10 @@ video {
     display: block;
   }
 
+  .md\:min-h-\[100dvh\] {
+    min-height: 100dvh;
+  }
+
   .md\:w-1\/4 {
     width: 25%;
   }
@@ -925,6 +933,10 @@ video {
 
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:justify-center {
+    justify-content: center;
   }
 
   .md\:justify-evenly {

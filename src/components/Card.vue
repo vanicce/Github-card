@@ -26,7 +26,7 @@ const capture = () => {
 
 <template>
   <div id="conteudo"
-    class="flex flex-col justify-center items-center p-3 rounded-3xl border border-zinc-300 w-4/5 max-w-sm m-2 transition-all" :class="shareStore.showModal ? 'blur-lg' : ''">
+    class="flex flex-col justify-center items-center p-3 rounded-3xl border border-zinc-300 w-4/5 m-2 lg:w-1/4 max-w-sm transition-all" :class="shareStore.showModal ? 'blur-lg' : ''">
     <img id='img' class="rounded-3xl mb-3" :src="store.pic" alt="foto de perfil do github" />
     <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank">@{{ store.login }}</a>
     <div class="flex">
@@ -38,7 +38,7 @@ const capture = () => {
     <a class="text-lg font-Prompt underline" :href="store.blog" target="_blank">{{ store.blog }}</a>
     <p class="text-base my-2 font-Prompt self-center">{{ store.bio }}</p>
   </div>
-  <div class="flex justify-between w-4/5 max-w-sm">
+  <div class="flex justify-between w-4/5 max-w-sm lg:w-1/4">
     <Button />
     <button class="border border-zinc-300 rounded-xl font-Prompt p-3 w-[49%]"
       @click="capture">

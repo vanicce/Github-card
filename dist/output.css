@@ -904,6 +904,10 @@ video {
   .sm\:w-2\/3 {
     width: 66.666667%;
   }
+
+  .sm\:w-1\/4 {
+    width: 25%;
+  }
 }
 
 @media (min-width: 768px) {
@@ -939,6 +943,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:w-1\/4 {
+    width: 25%;
+  }
+
   .lg\:max-w-sm {
     max-width: 24rem;
   }

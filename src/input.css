@@ -5,3 +5,8 @@
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+* ::selection {
+  color: white;
+  background-color: #262626;
+}

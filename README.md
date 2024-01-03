@@ -33,10 +33,10 @@ npm run dev
 ## Examples
 
 Image of project:
-<img src="https://raw.githubusercontent.com/lucwx/web-screenshot/main/github-card.vercel.app/github-card.vercel.app_desktop.jpeg" >
+<img src="https://raw.githubusercontent.com/lucwx/web-screenshot/main/screenshots/github-card.vercel.app/github-card.vercel.app_desktop.jpeg" >
 
 Image in mobile:
 <br>
 <p align="center">
-<img style="width: 40%;" src="https://raw.githubusercontent.com/lucwx/web-screenshot/main/github-card.vercel.app/github-card.vercel.app_mobile.jpeg" >
+<img style="width: 40%;" src="https://raw.githubusercontent.com/lucwx/web-screenshot/main/screenshots/github-card.vercel.app/github-card.vercel.app_mobile.jpeg" >
 </p>

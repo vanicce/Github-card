@@ -18,7 +18,7 @@ HTML, CSS, Tailwind, Vue, Pinia
 Steps required to install the project locally.
 
 ```bash
-git clone https://github.com/lucwx/Github-card.git
+git clone https://github.com/vanicce/Github-card.git
 ```
 ```bash
 cd Github-card

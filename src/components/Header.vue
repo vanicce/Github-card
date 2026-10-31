@@ -1,81 +1,90 @@
 <script setup>
-import { useCardStore } from '../stores/useCardStore';
-import router from '../router/index'
+import { onMounted, onUnmounted, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useCardStore } from "../stores/useCardStore";
+import { useShareStore } from "../stores/useShareStore";
+import { usernameError } from "../username.js";
 
-const store = useCardStore()
+const store = useCardStore();
+const shareStore = useShareStore();
+const route = useRoute();
+const router = useRouter();
+const searchError = ref("");
 
-document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey) {
-    if (event.key === 'i') {
-      document.querySelector('input').focus()
-      event.preventDefault()
-    }
+function onKeydown(event) {
+  if (event.ctrlKey && event.key === "i") {
+    document.querySelector("#search")?.focus();
+    event.preventDefault();
   }
-})
+}
 
-const defineUser = async () => {
-  const routerPath = router.currentRoute.value.params.user
-  document.querySelector('input').blur()
+onMounted(() => document.addEventListener("keydown", onKeydown));
+onUnmounted(() => document.removeEventListener("keydown", onKeydown));
 
-  if (store.searchInput === "" && routerPath === 'your name') {
-    window.alert("write a username");
-    return
+async function defineUser() {
+  const name = store.searchInput.trim();
+  const invalid = usernameError(name);
+  if (invalid) {
+    searchError.value = invalid;
+    return;
   }
-  console.log('oiii');
-  const response = await fetch(`https://api.github.com/users/${store.searchInput || routerPath}`);
-  try {
-    if (!response.ok) {
-      throw Error()
-    }
 
-    const userData = await response.json()
-    const { bio, avatar_url, login, followers, following, public_repos, blog, html_url } = userData
+  searchError.value = "";
+  store.searchInput = "";
+  document.querySelector("#search")?.blur();
 
-    store.pic = avatar_url;
-    store.login = login;
-    store.bio = bio;
-    store.followers = followers;
-    store.following = following;
-    store.repos = public_repos
-    store.blog = blog
-
-    store.url = html_url
-
-  } catch (error) {
-    response.status === 404 ? (
-      alert("user not finded")
-    ) : (
-      alert(`an error in requisiton ocurred: ${response.status} ${response.statusText}`)
-    )
-  } finally {
-    router.push({ name: 'card', params: { user: store.login } })
-    store.searchInput = ''
+  if (route.name === "card" && route.params.user === name) {
+    await store.loadUser(name, { force: true });
+    return;
   }
-};
 
-setTimeout(() => {
-  const routerPath = router.currentRoute.value.params.user
+  await router.push({ name: "card", params: { user: name } });
+}
 
-  const url = (() => {
-    if (routerPath != "your name" && routerPath != undefined) {
-      defineUser()
+watch(
+  () => route.fullPath,
+  () => {
+    shareStore.showModal = false;
+  }
+);
+
+watch(
+  () => route.params.user,
+  (user) => {
+    if (route.name === "card" && typeof user === "string") {
+      store.loadUser(user);
     }
-  })()
-
-}, 1000)
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <div class="flex items-center top-0 left-0 w-full h-16 border bg-zinc-50 ">
-    <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
-    <div class="flex w-full mx-3">
-      <input
-      class="p-1 border border-solid border-zinc-300 focus:border-neutral-600 rounded-l-md outline-none appearance-none bg-transparent w-full"
-      placeholder="search a username..." type="search" v-model="store.searchInput" @keydown.enter="defineUser"
-      />
-      <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md border-zinc-300" @click="defineUser">search</button>
+  <div class="w-full border bg-zinc-50">
+    <div class="flex items-center h-16">
+      <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
+      <form class="flex w-full mx-3" @submit.prevent="defineUser">
+        <label class="sr-only" for="search">GitHub username</label>
+        <input
+          id="search"
+          class="p-1 border border-solid border-zinc-300 focus:border-neutral-600 rounded-l-md outline-none appearance-none bg-transparent w-full"
+          placeholder="search a username..."
+          type="search"
+          autocomplete="off"
+          v-model="store.searchInput"
+          :aria-invalid="searchError ? 'true' : 'false'"
+          :aria-describedby="searchError ? 'search-error' : undefined"
+        />
+        <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md border-zinc-300" type="submit">search</button>
+      </form>
+      <router-link to="/repos" class="hidden md:block underline px-4">repos</router-link>
+      <router-link
+        v-if="store.login"
+        id="card"
+        :to="{ name: 'card', params: { user: store.login } }"
+        class="underline hidden md:block px-5"
+      >card</router-link>
     </div>
-    <router-link to="/repos" class="hidden md:block underline px-4">repos</router-link>
-    <router-link id="card" :to="{ params: { user: store.login }, name: 'card' }" class="underline hidden md:block px-5">card</router-link>
+    <p v-if="searchError" id="search-error" class="px-5 pb-2 font-Prompt text-sm text-red-700" role="alert">{{ searchError }}</p>
   </div>
 </template>

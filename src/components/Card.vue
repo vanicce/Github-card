@@ -1,11 +1,15 @@
 <script setup>
+import { onUnmounted, ref } from "vue";
 import Button from "./Button.vue";
 import { useCardStore } from "../stores/useCardStore.js";
 import html2canvas from "html2canvas";
 import { useShareStore } from "../stores/useShareStore";
+import { formatCount } from "../format.js";
 
 const shareStore = useShareStore();
 const store = useCardStore();
+const downloadMessage = ref("");
+let downloadTimer;
 
 function website(blog) {
   if (!blog) return "";
@@ -13,17 +17,28 @@ function website(blog) {
   return `https://${blog}`;
 }
 
-const capture = () => {
+async function capture() {
   const element = document.querySelector("#conteudo");
   if (!element) return;
 
-  html2canvas(element, { useCORS: true, backgroundColor: "#ffffff" }).then((canvas) => {
+  try {
+    const canvas = await html2canvas(element, { useCORS: true, backgroundColor: "#ffffff" });
     const link = document.createElement("a");
     link.href = canvas.toDataURL();
     link.download = `${store.login || "github"}_card`;
     link.click();
-  });
-};
+    downloadMessage.value = "Imagem salva";
+  } catch {
+    downloadMessage.value = "Não foi possível salvar";
+  }
+
+  clearTimeout(downloadTimer);
+  downloadTimer = setTimeout(() => {
+    downloadMessage.value = "";
+  }, 2500);
+}
+
+onUnmounted(() => clearTimeout(downloadTimer));
 </script>
 
 <template>
@@ -50,15 +65,15 @@ const capture = () => {
     >{{ store.blog }}</a>
     <dl class="mt-8 grid grid-cols-3">
       <div>
-        <dd class="text-[22px] font-semibold tracking-tight">{{ store.followers }}</dd>
+        <dd class="text-[22px] font-semibold tracking-tight">{{ formatCount(store.followers) }}</dd>
         <dt class="mt-1 text-[12px] text-muted">Seguidores</dt>
       </div>
       <div class="border-x border-black/10">
-        <dd class="text-[22px] font-semibold tracking-tight">{{ store.following }}</dd>
+        <dd class="text-[22px] font-semibold tracking-tight">{{ formatCount(store.following) }}</dd>
         <dt class="mt-1 text-[12px] text-muted">Seguindo</dt>
       </div>
       <div>
-        <dd class="text-[22px] font-semibold tracking-tight">{{ store.repos }}</dd>
+        <dd class="text-[22px] font-semibold tracking-tight">{{ formatCount(store.repos) }}</dd>
         <dt class="mt-1 text-[12px] text-muted">Repositórios</dt>
       </div>
     </dl>
@@ -71,4 +86,5 @@ const capture = () => {
       @click="capture"
     >Baixar</button>
   </div>
+  <p v-if="downloadMessage" class="mt-3 text-center text-sm text-muted" role="status">{{ downloadMessage }}</p>
 </template>

@@ -1,4 +1,6 @@
 <script setup>
+import { formatStars } from "../format.js";
+
 defineProps({
   repos: { type: Array, required: true },
 });
@@ -16,11 +18,9 @@ defineProps({
         <span class="min-w-0">
           <span class="block truncate text-[15px] font-medium">{{ repo.name }}</span>
           <span v-if="repo.description" class="mt-0.5 block truncate text-[13px] text-muted">{{ repo.description }}</span>
+          <span v-if="repo.language" class="mt-0.5 block text-[13px] text-muted">{{ repo.language }}</span>
         </span>
-        <span class="shrink-0 text-right text-[13px] text-muted">
-          <span class="block">{{ repo.stars }}</span>
-          <span v-if="repo.language" class="mt-0.5 block">{{ repo.language }}</span>
-        </span>
+        <span class="shrink-0 text-[13px] text-muted">{{ formatStars(repo.stars) }}</span>
       </a>
     </li>
   </ul>

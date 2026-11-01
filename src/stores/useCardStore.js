@@ -16,8 +16,12 @@ export const useCardStore = defineStore("card", () => {
   const url = ref("");
   const status = ref("idle");
   const errorMessage = ref("");
+  const notice = ref("");
   const repoList = ref([]);
   const repoError = ref("");
+  const repoPage = ref(0);
+  const repoHasMore = ref(false);
+  const repoLoading = ref(false);
   let requestId = 0;
 
   function clearProfile() {
@@ -31,29 +35,58 @@ export const useCardStore = defineStore("card", () => {
     url.value = "";
     repoList.value = [];
     repoError.value = "";
+    repoPage.value = 0;
+    repoHasMore.value = false;
+    repoLoading.value = false;
   }
 
   function fail(message) {
     clearProfile();
+    notice.value = "";
     status.value = "error";
     errorMessage.value = message;
   }
 
-  async function loadRepos(loginName, id) {
+  function reportFailure(message) {
+    if (login.value) {
+      status.value = "ready";
+      notice.value = message;
+      errorMessage.value = "";
+      return;
+    }
+    fail(message);
+  }
+
+  function mapRepos(data) {
+    return (Array.isArray(data) ? data : []).map((repo) => ({
+      id: repo.id,
+      name: repo.name,
+      description: repo.description ?? "",
+      language: repo.language ?? "",
+      stars: repo.stargazers_count ?? 0,
+      url: repo.html_url,
+    }));
+  }
+
+  async function loadRepos(loginName, id, { append = false } = {}) {
+    const page = append ? repoPage.value + 1 : 1;
+    repoLoading.value = true;
     try {
       const response = await fetch(
-        `https://api.github.com/users/${encodeURIComponent(loginName)}/repos?sort=updated&per_page=6`
+        `https://api.github.com/users/${encodeURIComponent(loginName)}/repos?sort=updated&per_page=6&page=${page}`
       );
       if (id !== requestId) return;
 
       if (response.status === 403 || response.status === 429) {
-        repoList.value = [];
+        if (!append) repoList.value = [];
+        repoHasMore.value = false;
         repoError.value = "Limite do GitHub atingido. Tente de novo mais tarde.";
         return;
       }
 
       if (!response.ok) {
-        repoList.value = [];
+        if (!append) repoList.value = [];
+        repoHasMore.value = false;
         repoError.value = "Não foi possível carregar os repositórios.";
         return;
       }
@@ -61,20 +94,25 @@ export const useCardStore = defineStore("card", () => {
       const data = await response.json();
       if (id !== requestId) return;
 
-      repoList.value = (Array.isArray(data) ? data : []).map((repo) => ({
-        id: repo.id,
-        name: repo.name,
-        description: repo.description ?? "",
-        language: repo.language ?? "",
-        stars: repo.stargazers_count ?? 0,
-        url: repo.html_url,
-      }));
+      const mapped = mapRepos(data);
+      const next = append ? repoList.value.concat(mapped) : mapped;
+      repoList.value = next;
+      repoPage.value = page;
+      repoHasMore.value = mapped.length === 6 && next.length < repos.value;
       repoError.value = "";
     } catch {
       if (id !== requestId) return;
-      repoList.value = [];
+      if (!append) repoList.value = [];
+      repoHasMore.value = false;
       repoError.value = "Não foi possível carregar os repositórios.";
+    } finally {
+      if (id === requestId) repoLoading.value = false;
     }
+  }
+
+  async function loadMoreRepos() {
+    if (!login.value || !repoHasMore.value || repoLoading.value) return;
+    await loadRepos(login.value, requestId, { append: true });
   }
 
   async function loadUser(username, { force = false } = {}) {
@@ -82,7 +120,7 @@ export const useCardStore = defineStore("card", () => {
     const invalid = usernameError(name);
     if (invalid) {
       requestId += 1;
-      fail(invalid);
+      reportFailure(invalid);
       return false;
     }
 
@@ -97,6 +135,7 @@ export const useCardStore = defineStore("card", () => {
     const id = ++requestId;
     status.value = "loading";
     errorMessage.value = "";
+    notice.value = "";
     repoError.value = "";
 
     try {
@@ -106,17 +145,17 @@ export const useCardStore = defineStore("card", () => {
       if (id !== requestId) return false;
 
       if (response.status === 404) {
-        fail("Usuário não encontrado.");
+        reportFailure("Usuário não encontrado.");
         return false;
       }
 
       if (response.status === 403 || response.status === 429) {
-        fail("Limite do GitHub atingido. Tente de novo mais tarde.");
+        reportFailure("Limite do GitHub atingido. Tente de novo mais tarde.");
         return false;
       }
 
       if (!response.ok) {
-        fail("Não foi possível carregar este perfil.");
+        reportFailure("Não foi possível carregar este perfil.");
         return false;
       }
 
@@ -135,11 +174,12 @@ export const useCardStore = defineStore("card", () => {
       await loadRepos(login.value, id);
       if (id !== requestId) return false;
 
+      notice.value = "";
       status.value = "ready";
       return true;
     } catch {
       if (id !== requestId) return false;
-      fail("Não foi possível consultar o GitHub. Tente de novo.");
+      reportFailure("Não foi possível consultar o GitHub. Tente de novo.");
       return false;
     }
   }
@@ -156,8 +196,12 @@ export const useCardStore = defineStore("card", () => {
     url,
     status,
     errorMessage,
+    notice,
     repoList,
     repoError,
+    repoHasMore,
+    repoLoading,
     loadUser,
+    loadMoreRepos,
   };
 });

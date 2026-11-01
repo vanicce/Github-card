@@ -1,45 +1,23 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { onMounted, onUnmounted, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useCardStore } from "../stores/useCardStore";
 import { useShareStore } from "../stores/useShareStore";
-import { usernameError } from "../username.js";
+import SearchField from "./SearchField.vue";
 
 const store = useCardStore();
 const shareStore = useShareStore();
 const route = useRoute();
-const router = useRouter();
-const searchError = ref("");
 
 function onKeydown(event) {
-  if (event.ctrlKey && event.key === "i") {
-    document.querySelector("#search")?.focus();
+  if (event.ctrlKey && event.key.toLowerCase() === "i") {
+    document.querySelector("#search, #home-username")?.focus();
     event.preventDefault();
   }
 }
 
 onMounted(() => document.addEventListener("keydown", onKeydown));
 onUnmounted(() => document.removeEventListener("keydown", onKeydown));
-
-async function defineUser() {
-  const name = store.searchInput.trim();
-  const invalid = usernameError(name);
-  if (invalid) {
-    searchError.value = invalid;
-    return;
-  }
-
-  searchError.value = "";
-  store.searchInput = "";
-  document.querySelector("#search")?.blur();
-
-  if (route.name === "card" && route.params.user === name) {
-    await store.loadUser(name, { force: true });
-    return;
-  }
-
-  await router.push({ name: "card", params: { user: name } });
-}
 
 watch(
   () => route.fullPath,
@@ -60,31 +38,29 @@ watch(
 </script>
 
 <template>
-  <div class="w-full border bg-zinc-50">
-    <div class="flex items-center h-16">
-      <router-link to="/" class="hover:underline hidden md:block px-5">GitHub</router-link>
-      <form class="flex w-full mx-3" @submit.prevent="defineUser">
-        <label class="sr-only" for="search">GitHub username</label>
-        <input
-          id="search"
-          class="p-1 border border-solid border-zinc-300 focus:border-neutral-600 rounded-l-md outline-none appearance-none bg-transparent w-full"
-          placeholder="search a username..."
-          type="search"
-          autocomplete="off"
-          v-model="store.searchInput"
-          :aria-invalid="searchError ? 'true' : 'false'"
-          :aria-describedby="searchError ? 'search-error' : undefined"
-        />
-        <button id="searchBtn" class="border border-l-0 p-1 rounded-r-md border-zinc-300" type="submit">search</button>
-      </form>
-      <router-link to="/repos" class="hidden md:block underline px-4">repos</router-link>
-      <router-link
-        v-if="store.login"
-        id="card"
-        :to="{ name: 'card', params: { user: store.login } }"
-        class="underline hidden md:block px-5"
-      >card</router-link>
+  <header class="sticky top-0 z-20 border-b border-line/80 bg-ink/80 backdrop-blur">
+    <div class="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-3 px-4 py-3">
+      <router-link to="/" class="order-1 flex items-center gap-2">
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-paper font-display text-lg leading-none text-ink" aria-hidden="true">G</span>
+        <span class="font-display text-xl">GitHub Card</span>
+      </router-link>
+      <nav class="order-2 ml-auto flex items-center gap-4 text-sm md:order-3">
+        <router-link
+          to="/repos"
+          class="hover:text-paper"
+          :class="route.name === 'repos' ? 'text-ember' : 'text-paper/75'"
+        >Repositórios</router-link>
+        <router-link
+          v-if="store.login"
+          id="card"
+          :to="{ name: 'card', params: { user: store.login } }"
+          class="hover:text-paper"
+          :class="route.name === 'card' ? 'text-ember' : 'text-paper/75'"
+        >Cartão</router-link>
+      </nav>
+      <div v-if="route.name !== 'Home'" class="order-3 w-full md:order-2 md:w-auto md:min-w-[18rem] md:flex-1">
+        <SearchField input-id="search" />
+      </div>
     </div>
-    <p v-if="searchError" id="search-error" class="px-5 pb-2 font-Prompt text-sm text-red-700" role="alert">{{ searchError }}</p>
-  </div>
+  </header>
 </template>

@@ -1,10 +1,6 @@
-<script setup>
-
-</script>
-
 <template>
-  <div
-    class="flex justify-center items-center w-full h-20 border bg-zinc-50">
-    <h2>made with ❤ by <a class="underline" href="https://github.com/lucwx" target="_blank">Lucas</a>.</h2>
-  </div>
+  <footer class="border-t border-line/80 px-4 py-6 text-center text-sm text-muted">
+    Feito por
+    <a class="text-paper underline decoration-ember/70 underline-offset-4" href="https://github.com/lucwx" target="_blank" rel="noopener noreferrer">Lucas</a>
+  </footer>
 </template>

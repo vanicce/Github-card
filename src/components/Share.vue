@@ -1,58 +1,73 @@
 <script setup>
-import { reactive } from 'vue'
-import { storeToRefs } from 'pinia'
+import { onMounted, onUnmounted, ref } from "vue";
+import { storeToRefs } from "pinia";
 import { useShareStore } from "../stores/useShareStore.js";
 
-const store = useShareStore()
-const { showModal } = storeToRefs(store)
+const store = useShareStore();
+const { showModal, copied } = storeToRefs(store);
+const url = window.location.href;
+const linkField = ref(null);
+let copiedTimer;
 
-const state = reactive({
-  url: window.location
-})
-
-const copy = async () => {
-  store.copied = true
-
-  setTimeout(() => {
-    store.copied = false
-  }, 1500);
-
-  await navigator.clipboard.writeText(state.url)
+function close() {
+  showModal.value = false;
 }
 
+function onKeydown(event) {
+  if (event.key === "Escape") close();
+}
+
+async function copy() {
+  try {
+    await navigator.clipboard.writeText(url);
+    copied.value = true;
+    clearTimeout(copiedTimer);
+    copiedTimer = setTimeout(() => {
+      copied.value = false;
+    }, 1600);
+  } catch {
+    linkField.value?.focus();
+    linkField.value?.select();
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("keydown", onKeydown);
+  linkField.value?.focus();
+});
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", onKeydown);
+  clearTimeout(copiedTimer);
+});
 </script>
 
 <template>
-  <div class="flex h-screen w-screen justify-center items-center fixed left-0 top-0">
-    <div class="flex justify-between flex-col px-3 p-7 m-2 w-full sm:w-2/3 md:w-auto border rounded-lg bg-white">
-      <div class="flex items-start justify-end">
-        <button @click="showModal = false">
-          <img src="../assets/x-symbol.svg" width="25" height="25">
-        </button>
-      </div>
-      <div class="flex flex-col md:flex-row md:justify-evenly justify-center items-center">
-        <h1 class="text-lg">share:</h1>
-        <p class="flex items-center justify-between flex-col border border-solid rounded-md border-zinc-300 w-full sm:min-w-3/4 p-2 m-2 font-Prompt"> {{ state.url }}
-        </p>
-        <button class="border border-zinc-300 px-4 py-2 rounded-md text-black" @click="copy()">copy</button>
-      </div>
-      <Transition>
-        <div v-if="store.copied" class="flex items-center justify-center">
-          <p class="font-Prompt">Copied to clipboard!</p>
+  <div class="fixed inset-0 z-50 grid place-items-center bg-ink/75 p-4" @click.self="close">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="share-title"
+      class="w-full max-w-md rounded-3xl bg-paper p-6 text-ink shadow-card"
+    >
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 id="share-title" class="font-display text-4xl leading-none">Compartilhar</h2>
+          <p class="mt-2 text-sm text-ink/70">Quem abrir o link vê este cartão.</p>
         </div>
-      </Transition>
+        <button type="button" class="grid h-9 w-9 place-items-center rounded-full text-2xl leading-none text-ink/70 hover:bg-ink/5" aria-label="Fechar" @click="close">×</button>
+      </div>
+      <input
+        ref="linkField"
+        readonly
+        :value="url"
+        class="mt-5 w-full rounded-2xl border border-ink/15 bg-ink/5 px-4 py-3 text-sm"
+        aria-label="Link do cartão"
+        @focus="linkField?.select()"
+      />
+      <button type="button" class="mt-3 h-12 w-full rounded-full bg-ember font-medium text-ink transition hover:brightness-110" @click="copy">
+        {{ copied ? "Copiado" : "Copiar link" }}
+      </button>
     </div>
   </div>
 </template>
-
-<style>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-</style>

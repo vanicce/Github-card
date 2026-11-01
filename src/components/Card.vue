@@ -1,53 +1,78 @@
 <script setup>
 import Button from "./Button.vue";
 import { useCardStore } from "../stores/useCardStore.js";
-import html2canvas from "html2canvas"
-import { useShareStore } from '../stores/useShareStore';
+import html2canvas from "html2canvas";
+import { useShareStore } from "../stores/useShareStore";
 
-const shareStore = useShareStore()
-const store = useCardStore()
+const shareStore = useShareStore();
+const store = useCardStore();
 
 function website(blog) {
-  if (!blog) return ""
-  if (/^https?:\/\//i.test(blog)) return blog
-  return `https://${blog}`
+  if (!blog) return "";
+  if (/^https?:\/\//i.test(blog)) return blog;
+  return `https://${blog}`;
 }
 
 const capture = () => {
-  const element = document.querySelector('#conteudo');
-  if (!element) return
+  const element = document.querySelector("#conteudo");
+  if (!element) return;
 
-  html2canvas(element, {
-    useCORS: true
-  }).then((canvas) => {
-    const link = document.createElement('a')
-    link.href = canvas.toDataURL()
-    link.download = `${store.login || "github"}_card`
-    link.click()
+  html2canvas(element, { useCORS: true, backgroundColor: "#f4efe4" }).then((canvas) => {
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL();
+    link.download = `${store.login || "github"}_card`;
+    link.click();
   });
-}
-
+};
 </script>
 
 <template>
-  <div id="conteudo"
-    class="flex flex-col justify-center items-center p-3 rounded-3xl border border-zinc-300 w-4/5 m-2 lg:w-1/4 max-w-sm transition-all" :class="shareStore.showModal ? 'blur-lg' : ''">
-    <img id="img" class="rounded-3xl mb-3" :src="store.pic" :alt="`Profile photo of ${store.login}`" crossorigin="anonymous" />
-    <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank" rel="noopener noreferrer">@{{ store.login }}</a>
-    <div class="flex">
-      <p class="text-lg mt-2 font-Prompt">followers: {{ store.followers }}</p>
-      <p class="text-lg mt-2 mx-2">&#x2022</p>
-      <p class="text-lg mt-2 font-Prompt">following: {{ store.following }}</p>
+  <article
+    id="conteudo"
+    class="w-full max-w-sm overflow-hidden rounded-[28px] bg-paper text-ink shadow-card transition"
+    :class="shareStore.showModal ? 'blur-sm' : ''"
+  >
+    <div class="bg-[#efe4d4] px-6 pb-2 pt-8">
+      <img
+        id="img"
+        class="mx-auto h-36 w-36 rounded-full object-cover ring-4 ring-paper"
+        :src="store.pic"
+        :alt="`Foto de perfil de ${store.login}`"
+        crossorigin="anonymous"
+      />
     </div>
-    <p class="text-lg font-Prompt">repos: {{ store.repos }}</p>
-    <a v-if="store.blog" class="text-lg font-Prompt underline" :href="website(store.blog)" target="_blank" rel="noopener noreferrer">{{ store.blog }}</a>
-    <p class="text-base my-2 font-Prompt self-center">{{ store.bio }}</p>
-  </div>
-  <div class="flex justify-between w-4/5 max-w-sm lg:w-1/4">
+    <div class="px-6 pb-6 pt-4 text-center">
+      <a class="block font-display text-4xl leading-none hover:underline" :href="store.url" target="_blank" rel="noopener noreferrer">@{{ store.login }}</a>
+      <p v-if="store.bio" class="mt-3 text-sm leading-relaxed text-ink/75">{{ store.bio }}</p>
+      <a
+        v-if="store.blog"
+        class="mt-2 block break-all text-sm underline decoration-ember underline-offset-4"
+        :href="website(store.blog)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >{{ store.blog }}</a>
+      <dl class="mt-5 grid grid-cols-3 gap-2 border-t border-ink/10 pt-4">
+        <div>
+          <dt class="text-[11px] uppercase tracking-wider text-ink/55">Seguidores</dt>
+          <dd class="font-display text-2xl">{{ store.followers }}</dd>
+        </div>
+        <div>
+          <dt class="text-[11px] uppercase tracking-wider text-ink/55">Seguindo</dt>
+          <dd class="font-display text-2xl">{{ store.following }}</dd>
+        </div>
+        <div>
+          <dt class="text-[11px] uppercase tracking-wider text-ink/55">Repositórios</dt>
+          <dd class="font-display text-2xl">{{ store.repos }}</dd>
+        </div>
+      </dl>
+    </div>
+  </article>
+  <div class="mt-4 grid w-full max-w-sm grid-cols-2 gap-3">
     <Button />
-    <button class="border border-zinc-300 rounded-xl font-Prompt p-3 w-[49%]"
-      @click="capture">
-      Download
-    </button>
+    <button
+      type="button"
+      class="h-12 rounded-full border border-paper/30 font-medium transition hover:border-paper"
+      @click="capture"
+    >Baixar</button>
   </div>
 </template>

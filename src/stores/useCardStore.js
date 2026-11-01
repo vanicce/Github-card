@@ -48,13 +48,13 @@ export const useCardStore = defineStore("card", () => {
 
       if (response.status === 403 || response.status === 429) {
         repoList.value = [];
-        repoError.value = "GitHub rate limit reached. Try again later.";
+        repoError.value = "Limite do GitHub atingido. Tente de novo mais tarde.";
         return;
       }
 
       if (!response.ok) {
         repoList.value = [];
-        repoError.value = "Could not load repositories.";
+        repoError.value = "Não foi possível carregar os repositórios.";
         return;
       }
 
@@ -73,7 +73,7 @@ export const useCardStore = defineStore("card", () => {
     } catch {
       if (id !== requestId) return;
       repoList.value = [];
-      repoError.value = "Could not load repositories.";
+      repoError.value = "Não foi possível carregar os repositórios.";
     }
   }
 
@@ -106,17 +106,17 @@ export const useCardStore = defineStore("card", () => {
       if (id !== requestId) return false;
 
       if (response.status === 404) {
-        fail("User not found.");
+        fail("Usuário não encontrado.");
         return false;
       }
 
       if (response.status === 403 || response.status === 429) {
-        fail("GitHub rate limit reached. Try again later.");
+        fail("Limite do GitHub atingido. Tente de novo mais tarde.");
         return false;
       }
 
       if (!response.ok) {
-        fail("Could not load this profile.");
+        fail("Não foi possível carregar este perfil.");
         return false;
       }
 
@@ -139,7 +139,7 @@ export const useCardStore = defineStore("card", () => {
       return true;
     } catch {
       if (id !== requestId) return false;
-      fail("Could not reach GitHub. Try again.");
+      fail("Não foi possível consultar o GitHub. Tente de novo.");
       return false;
     }
   }

@@ -6,7 +6,28 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-* ::selection {
-  color: white;
-  background-color: #262626;
+html {
+  scroll-behavior: smooth;
+}
+
+#app {
+  min-height: 100dvh;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: #1c1712;
+  background-image: radial-gradient(ellipse at top, #3c2b22 0%, #1c1712 58%);
+  color: #f4efe4;
+  font-family: Outfit, system-ui, sans-serif;
+}
+
+::selection {
+  color: #1c1712;
+  background-color: #ff5a36;
+}
+
+:focus-visible {
+  outline: 2px solid #ff5a36;
+  outline-offset: 3px;
 }

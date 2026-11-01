@@ -4,7 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useCardStore } from "../stores/useCardStore";
 import { usernameError } from "../username.js";
 
-const props = defineProps({
+defineProps({
   inputId: { type: String, required: true },
   size: { type: String, default: "compact" },
 });
@@ -37,7 +37,7 @@ async function submit() {
 
 <template>
   <form class="w-full" @submit.prevent="submit">
-    <div :class="size === 'hero' ? 'flex flex-col gap-3 sm:flex-row' : 'flex gap-2'">
+    <div :class="size === 'hero' ? 'flex flex-col gap-3 sm:flex-row sm:items-center' : 'flex items-center gap-2'">
       <label class="sr-only" :for="inputId">Nome de usuário do GitHub</label>
       <input
         :id="inputId"
@@ -50,18 +50,18 @@ async function submit() {
         :aria-invalid="message ? 'true' : 'false'"
         :aria-describedby="message ? `${inputId}-error` : undefined"
         :class="size === 'hero'
-          ? 'h-14 w-full rounded-full bg-paper px-5 text-lg text-ink outline-none placeholder:text-ink/40'
-          : 'h-11 w-full rounded-full border border-line bg-transparent px-4 text-paper outline-none placeholder:text-muted'"
+          ? 'h-12 w-full rounded-full border border-black/10 bg-white px-5 text-[17px] text-ink outline-none placeholder:text-muted'
+          : 'h-9 w-full rounded-full bg-canvas px-4 text-sm text-ink outline-none placeholder:text-muted'"
       />
       <button
         type="submit"
         :class="size === 'hero'
-          ? 'h-14 shrink-0 rounded-full bg-ember px-7 font-medium text-ink transition hover:brightness-110'
-          : 'h-11 shrink-0 rounded-full bg-ember px-4 text-sm font-medium text-ink transition hover:brightness-110'"
+          ? 'h-12 shrink-0 rounded-full bg-ink px-6 text-[17px] text-white transition hover:bg-black'
+          : 'h-9 shrink-0 rounded-full bg-ink px-4 text-sm text-white transition hover:bg-black'"
       >
         Buscar
       </button>
     </div>
-    <p v-if="message" :id="`${inputId}-error`" class="mt-2 text-sm text-ember" role="alert">{{ message }}</p>
+    <p v-if="message" :id="`${inputId}-error`" class="mt-3 text-center text-sm text-muted" role="alert">{{ message }}</p>
   </form>
 </template>

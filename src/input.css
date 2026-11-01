@@ -10,24 +10,24 @@ html {
   scroll-behavior: smooth;
 }
 
-#app {
+#app,
+body {
   min-height: 100dvh;
 }
 
 body {
-  min-height: 100dvh;
-  background-color: #1c1712;
-  background-image: radial-gradient(ellipse at top, #3c2b22 0%, #1c1712 58%);
-  color: #f4efe4;
-  font-family: Outfit, system-ui, sans-serif;
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  color: #1c1712;
-  background-color: #ff5a36;
+  color: #fff;
+  background-color: #1d1d1f;
 }
 
 :focus-visible {
-  outline: 2px solid #ff5a36;
+  outline: 2px solid #0071e3;
   outline-offset: 3px;
 }

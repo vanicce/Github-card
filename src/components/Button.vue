@@ -10,7 +10,7 @@ const { showModal } = storeToRefs(store);
 <template>
   <button
     type="button"
-    class="h-12 w-full rounded-full bg-ember font-medium text-ink transition hover:brightness-110"
+    class="h-11 w-full rounded-full bg-ink text-[15px] text-white transition hover:bg-black"
     @click="showModal = true"
   >Compartilhar</button>
   <Share v-if="showModal" />

@@ -29,7 +29,7 @@ watch(
 </script>
 
 <template>
-  <header class="sticky top-0 z-20 border-b border-black/10 bg-white/80 backdrop-blur-xl">
+  <header class="sticky top-0 z-20 border-b border-white/10 bg-black/70 backdrop-blur-xl">
     <div class="mx-auto flex w-full max-w-3xl flex-wrap items-center gap-3 px-5 py-3">
       <router-link to="/" class="order-1 text-[15px] font-semibold tracking-tight">Retrospectiva</router-link>
       <div v-if="route.name !== 'Home'" class="order-2 w-full md:ml-auto md:max-w-sm">

@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: "#1d1d1f",
-        canvas: "#f5f5f7",
-        muted: "#6e6e73",
+        ink: "#f5f5f7",
+        canvas: "#09090b",
+        muted: "#a1a1aa",
         line: "#d2d2d7",
       },
       fontFamily: {

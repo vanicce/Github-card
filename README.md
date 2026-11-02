@@ -1,7 +1,7 @@
 
 # Retrospectiva
 
-A public GitHub retrospective. Search a username and read the account age, original repositories, stars, main language, the busiest repository, what changed this year, and the recent public activity the API still returns.
+A public GitHub retrospective that compares this year with last year. Search a username and see repositories created, the stars on those repositories, and the highlighted repository, with the difference called out on every frame and on the final card.
 
 ## Index
 

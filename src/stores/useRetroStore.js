@@ -1,10 +1,9 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { usernameError } from "../username.js";
-import { buildRetrospective } from "../retrospective.js";
+import { buildComparison, summarizeYear } from "../compare.js";
 
 const EMPTY_PIC = "/profilepic.jpg";
-const MAX_REPO_PAGES = 3;
 
 export const useRetroStore = defineStore("retro", () => {
   const login = ref("");
@@ -49,7 +48,7 @@ export const useRetroStore = defineStore("retro", () => {
       return null;
     }
     if (!response.ok) {
-      reportFailure("Não foi possível ler este GitHub.");
+      reportFailure("Não foi possível comparar esses anos.");
       return null;
     }
     const data = await response.json();
@@ -57,46 +56,24 @@ export const useRetroStore = defineStore("retro", () => {
     return data;
   }
 
-  async function loadRepos(name, id) {
-    const repos = [];
-    for (let page = 1; page <= MAX_REPO_PAGES; page += 1) {
-      const response = await fetch(
-        `https://api.github.com/users/${encodeURIComponent(name)}/repos?per_page=100&page=${page}&sort=updated`
-      );
-      const data = await readJson(response, id);
-      if (!data) return null;
-      const batch = Array.isArray(data) ? data : [];
-      repos.push(
-        ...batch.map((repo) => ({
-          name: repo.name,
-          description: repo.description || "",
-          language: repo.language || "",
-          stars: repo.stargazers_count || 0,
-          fork: Boolean(repo.fork),
-          created: repo.created_at,
-          pushed: repo.pushed_at,
-          url: repo.html_url,
-        }))
-      );
-      if (batch.length < 100) return { repos, complete: true };
-    }
-    return { repos, complete: false };
-  }
-
-  async function loadEvents(name, id) {
+  async function searchYear(name, year, id) {
+    const query = `user:${name} fork:false created:${year}-01-01..${year}-12-31`;
     const response = await fetch(
-      `https://api.github.com/users/${encodeURIComponent(name)}/events/public?per_page=100`
+      `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=100`
     );
-    if (id !== requestId) return null;
-    if (!response.ok) return [];
-    const data = await response.json();
-    if (id !== requestId) return null;
-    return (Array.isArray(data) ? data : []).map((event) => ({
-      type: event.type,
-      action: event.payload?.action || "",
-      commits: event.payload?.size ?? event.payload?.commits?.length ?? 0,
-      createdAt: event.created_at,
-    }));
+    const data = await readJson(response, id);
+    if (!data) return null;
+    const items = Array.isArray(data.items) ? data.items : [];
+    return summarizeYear(
+      items.map((repo) => ({
+        name: repo.name,
+        description: repo.description || "",
+        language: repo.language || "",
+        stars: repo.stargazers_count || 0,
+        url: repo.html_url || "",
+      })),
+      Number(data.total_count) || items.length
+    );
   }
 
   async function loadUser(username, { force = false } = {}) {
@@ -116,30 +93,32 @@ export const useRetroStore = defineStore("retro", () => {
     status.value = "loading";
     errorMessage.value = "";
     notice.value = "";
+    const year = new Date().getFullYear();
+    const previousYear = year - 1;
 
     try {
       const response = await fetch(`https://api.github.com/users/${encodeURIComponent(name)}`);
       const userData = await readJson(response, id);
       if (!userData) return false;
 
-      const repoResult = await loadRepos(userData.login || name, id);
-      if (!repoResult || id !== requestId) return false;
-      const events = await loadEvents(userData.login || name, id);
-      if (!events || id !== requestId) return false;
+      const loginName = userData.login || name;
+      const [current, previous] = await Promise.all([
+        searchYear(loginName, year, id),
+        searchYear(loginName, previousYear, id),
+      ]);
+      if (!current || !previous || id !== requestId) return false;
 
-      const next = buildRetrospective({
+      const next = buildComparison({
         user: {
-          login: userData.login || name,
+          login: loginName,
           name: userData.name || "",
           avatar: userData.avatar_url || EMPTY_PIC,
           url: userData.html_url || "",
-          createdAt: userData.created_at,
-          followers: userData.followers || 0,
         },
-        repos: repoResult.repos,
-        events,
-        complete: repoResult.complete,
-        now: new Date(),
+        current,
+        previous,
+        year,
+        previousYear,
       });
 
       if (id !== requestId) return false;

@@ -1,10 +1,13 @@
 <script setup>
-  import { useCardStore } from '../stores/useCardStore';
-
-  const store = useCardStore()
+import SearchField from "../components/SearchField.vue";
 </script>
 
 <template>
-  <h1 class="text-3xl md:text-5xl 2xl:text-6xl p-3 font-Prompt text-center">Find Your GitHub Card</h1>
-  <router-link :to="{ params: { user: store.login}, name: 'card'}" class="px-5 py-3 rounded-lg font-Prompt font-bold border border-zinc-300 hover:scale-110 transition-transform">Start</router-link>
+  <section class="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-5 py-20 text-center">
+    <h1 class="text-[40px] font-semibold leading-[1.05] tracking-tight md:text-6xl">Seu GitHub, em um cartão.</h1>
+    <p class="mt-4 max-w-md text-[17px] leading-relaxed text-muted">Busque um usuário. Compartilhe o cartão ou salve a imagem.</p>
+    <div class="mt-8 w-full max-w-md">
+      <SearchField input-id="home-username" size="hero" />
+    </div>
+  </section>
 </template>

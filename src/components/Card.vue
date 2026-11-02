@@ -1,48 +1,90 @@
 <script setup>
+import { onUnmounted, ref } from "vue";
 import Button from "./Button.vue";
 import { useCardStore } from "../stores/useCardStore.js";
-import html2canvas from "html2canvas"
-import { useShareStore } from '../stores/useShareStore';
+import html2canvas from "html2canvas";
+import { useShareStore } from "../stores/useShareStore";
+import { formatCount } from "../format.js";
 
-const shareStore = useShareStore()
-const store = useCardStore()
+const shareStore = useShareStore();
+const store = useCardStore();
+const downloadMessage = ref("");
+let downloadTimer;
 
-const capture = () => {
-  const element = document.querySelector('#conteudo');
-
-   html2canvas(element, {
-    useCORS: true
-  }).then((canvas) => {
-    let capturedImage = canvas.toDataURL();
-    let link = document.createElement('a')
-    link.href = capturedImage
-    link.download = "your_github_card"
-
-    link.click()
-  });
+function website(blog) {
+  if (!blog) return "";
+  if (/^https?:\/\//i.test(blog)) return blog;
+  return `https://${blog}`;
 }
 
+async function capture() {
+  const element = document.querySelector("#conteudo");
+  if (!element) return;
+
+  try {
+    const canvas = await html2canvas(element, { useCORS: true, backgroundColor: "#ffffff" });
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL();
+    link.download = `${store.login || "github"}_card`;
+    link.click();
+    downloadMessage.value = "Imagem salva";
+  } catch {
+    downloadMessage.value = "Não foi possível salvar";
+  }
+
+  clearTimeout(downloadTimer);
+  downloadTimer = setTimeout(() => {
+    downloadMessage.value = "";
+  }, 2500);
+}
+
+onUnmounted(() => clearTimeout(downloadTimer));
 </script>
 
 <template>
-  <div id="conteudo"
-    class="flex flex-col justify-center items-center p-3 rounded-3xl border border-zinc-300 w-4/5 m-2 lg:w-1/4 max-w-sm transition-all" :class="shareStore.showModal ? 'blur-lg' : ''">
-    <img id='img' class="rounded-3xl mb-3" :src="store.pic" alt="foto de perfil do github" />
-    <a class="hover:underline text-2xl md:text-3xl font-Prompt" :href="store.url" target="_blank">@{{ store.login }}</a>
-    <div class="flex">
-      <p class="text-lg mt-2 font-Prompt">followers: {{ store.followers }}</p>
-      <p class="text-lg mt-2 mx-2">&#x2022</p>
-      <p class="text-lg mt-2 font-Prompt">following: {{ store.following }}</p>
-    </div>
-    <p class="text-lg font-Prompt">repos: {{ store.repos }}</p>
-    <a class="text-lg font-Prompt underline" :href="store.blog" target="_blank">{{ store.blog }}</a>
-    <p class="text-base my-2 font-Prompt self-center">{{ store.bio }}</p>
-  </div>
-  <div class="flex justify-between w-4/5 max-w-sm lg:w-1/4">
+  <article
+    id="conteudo"
+    class="w-full max-w-sm rounded-[28px] bg-white px-8 pb-8 pt-10 text-center shadow-card transition"
+    :class="shareStore.showModal ? 'blur-sm' : ''"
+  >
+    <img
+      id="img"
+      class="mx-auto h-28 w-28 rounded-full object-cover"
+      :src="store.pic"
+      :alt="`Foto de perfil de ${store.login}`"
+      crossorigin="anonymous"
+    />
+    <a class="mt-5 block text-[28px] font-semibold tracking-tight hover:underline" :href="store.url" target="_blank" rel="noopener noreferrer">@{{ store.login }}</a>
+    <p v-if="store.bio" class="mt-2 text-[15px] leading-relaxed text-muted">{{ store.bio }}</p>
+    <a
+      v-if="store.blog"
+      class="mt-2 block break-all text-[15px] text-[#0071e3]"
+      :href="website(store.blog)"
+      target="_blank"
+      rel="noopener noreferrer"
+    >{{ store.blog }}</a>
+    <dl class="mt-8 grid grid-cols-3">
+      <div>
+        <dd class="text-[22px] font-semibold tracking-tight">{{ formatCount(store.followers) }}</dd>
+        <dt class="mt-1 text-[12px] text-muted">Seguidores</dt>
+      </div>
+      <div class="border-x border-black/10">
+        <dd class="text-[22px] font-semibold tracking-tight">{{ formatCount(store.following) }}</dd>
+        <dt class="mt-1 text-[12px] text-muted">Seguindo</dt>
+      </div>
+      <div>
+        <dd class="text-[22px] font-semibold tracking-tight">{{ formatCount(store.repos) }}</dd>
+        <dt class="mt-1 text-[12px] text-muted">Repositórios</dt>
+      </div>
+    </dl>
+  </article>
+  <div class="mt-6 grid w-full max-w-sm grid-cols-2 gap-3">
     <Button />
-    <button class="border border-zinc-300 rounded-xl font-Prompt p-3 w-[49%]"
-      @click="capture">
-      Download
-    </button>
+    <button
+      type="button"
+      class="h-11 rounded-full bg-white text-[15px] text-ink shadow-card transition hover:bg-black/[0.03]"
+      @click="capture"
+    >Baixar</button>
   </div>
+  <p v-if="downloadMessage" class="mt-3 text-center text-sm text-muted" role="status">{{ downloadMessage }}</p>
 </template>

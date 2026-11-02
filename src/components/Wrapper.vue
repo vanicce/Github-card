@@ -1,9 +1,5 @@
-<script setup>
-
-</script>
-
 <template>
-  <div class="flex flex-col justify-start md:justify-center items-center bg-zinc-50 min-h-[100dvh] h-full py-4">
+  <main class="flex w-full flex-1 flex-col">
     <slot></slot>
-  </div>
+  </main>
 </template>

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useCardStore } from "../stores/useCardStore";
+import { useRetroStore } from "../stores/useRetroStore";
 import { usernameError } from "../username.js";
 
 defineProps({
@@ -9,7 +9,7 @@ defineProps({
   size: { type: String, default: "compact" },
 });
 
-const store = useCardStore();
+const store = useRetroStore();
 const route = useRoute();
 const router = useRouter();
 const draft = ref("");
@@ -18,7 +18,7 @@ const loading = computed(() => store.status === "loading");
 
 const feedback = computed(() => {
   if (message.value) return message.value;
-  if (route.name === "card") return "";
+  if (route.name === "retro") return "";
   if (store.notice) return store.notice;
   if (route.name === "Home" && store.status === "error") return store.errorMessage;
   return "";
@@ -27,7 +27,7 @@ const feedback = computed(() => {
 watch(
   () => store.status,
   (status) => {
-    if (status === "error" && route.name === "card" && typeof route.params.user === "string") {
+    if (status === "error" && route.name === "retro" && typeof route.params.user === "string") {
       draft.value = route.params.user;
     }
   }
@@ -48,8 +48,8 @@ async function submit() {
   if (!ok) return;
 
   draft.value = "";
-  if (route.name !== "card" || route.params.user !== store.login) {
-    await router.push({ name: "card", params: { user: store.login } });
+  if (route.name !== "retro" || route.params.user !== store.login) {
+    await router.push({ name: "retro", params: { user: store.login } });
   }
 }
 </script>

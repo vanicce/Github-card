@@ -1,7 +1,7 @@
 
-# Github-card
+# Retrospectiva
 
-this project consists of fetching a username from github and the information is returned in the form of a custom Card, using events and DOM manipulation, asynchronous API queries and component creation
+A public GitHub retrospective. Search a username and read the account age, original repositories, stars, main language, the busiest repository, what changed this year, and the recent public activity the API still returns.
 
 ## Index
 

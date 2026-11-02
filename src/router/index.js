@@ -1,7 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../pages/Index.vue";
-import CardPage from "../pages/cardPage.vue";
-import Repos from "../pages/Repos.vue";
+import Retro from "../pages/Retro.vue";
 import NotFound from "../pages/404Page.vue";
 
 const routes = [
@@ -11,14 +10,17 @@ const routes = [
     component: Home,
   },
   {
+    path: "/r/:user",
+    name: "retro",
+    component: Retro,
+  },
+  {
     path: "/card/:user",
-    name: "card",
-    component: CardPage,
+    redirect: (to) => ({ name: "retro", params: { user: to.params.user } }),
   },
   {
     path: "/repos",
-    name: "repos",
-    component: Repos,
+    redirect: "/",
   },
   {
     path: "/:catchAll(.*)",

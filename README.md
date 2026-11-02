@@ -1,7 +1,7 @@
 
 # Retrospectiva
 
-A public GitHub retrospective that compares this year with last year. Search a username and see repositories created, the stars on those repositories, and the highlighted repository, with the difference called out on every frame and on the final card.
+A card that compares this year's public GitHub repositories with last year's. Search a username and download a card with the numbers and the difference.
 
 ## Index
 

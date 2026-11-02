@@ -37,15 +37,14 @@ test("builds a year comparison and keeps the delta on each number", () => {
   });
 
   assert.equal(story.repos.diff, 1);
+  assert.equal(deltaLabel(story.repos.diff), "+1");
   assert.equal(story.stars.diff, 8);
+  assert.equal(deltaPhrase(story.stars.diff, 2025), "8 a mais que 2025");
   assert.equal(story.topStars.diff, 6);
   assert.equal(story.highlight.name, "novo");
   assert.equal(story.language, "Go");
   assert.equal(story.previousLanguage, "Python");
-  assert.equal(story.slides.find((slide) => slide.id === "repos").delta, "+1");
-  assert.equal(story.slides.find((slide) => slide.id === "stars").detail, "8 a mais que 2025");
-  assert.equal(story.slides.find((slide) => slide.id === "language").delta, "mudou");
-  assert.equal(story.slides.at(-1).id, "card");
+  assert.equal(story.partial, false);
 });
 
 test("says when the star sum only covers the top 100", () => {
@@ -59,6 +58,6 @@ test("says when the star sum only covers the top 100", () => {
     current: year,
     previous: summarizeYear([], 0),
   });
-  assert.match(story.slides.find((slide) => slide.id === "stars").footnote, /100/);
-  assert.equal(story.slides.some((slide) => slide.id === "language"), true);
+  assert.equal(story.partial, true);
+  assert.equal(story.language, "Rust");
 });

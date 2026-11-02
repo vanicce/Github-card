@@ -20,7 +20,7 @@ onUnmounted(() => document.removeEventListener("keydown", onKeydown));
 watch(
   () => route.params.user,
   (user) => {
-    if (route.name === "retro" && typeof user === "string") {
+    if (route.name === "card" && typeof user === "string") {
       store.loadUser(user);
     }
   },
@@ -31,7 +31,7 @@ watch(
 <template>
   <header class="sticky top-0 z-20 border-b border-white/10 bg-black/70 backdrop-blur-xl">
     <div class="mx-auto flex w-full max-w-3xl flex-wrap items-center gap-3 px-5 py-3">
-      <router-link to="/" class="order-1 text-[15px] font-semibold tracking-tight">Retrospectiva</router-link>
+      <router-link to="/" class="order-1 text-[15px] font-semibold tracking-tight">Card</router-link>
       <div v-if="route.name !== 'Home'" class="order-2 w-full md:ml-auto md:max-w-sm">
         <SearchField input-id="search" />
       </div>

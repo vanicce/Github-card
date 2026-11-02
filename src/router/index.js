@@ -10,13 +10,13 @@ const routes = [
     component: Home,
   },
   {
-    path: "/r/:user",
-    name: "retro",
+    path: "/card/:user",
+    name: "card",
     component: Retro,
   },
   {
-    path: "/card/:user",
-    redirect: (to) => ({ name: "retro", params: { user: to.params.user } }),
+    path: "/r/:user",
+    redirect: (to) => ({ name: "card", params: { user: to.params.user } }),
   },
   {
     path: "/repos",
